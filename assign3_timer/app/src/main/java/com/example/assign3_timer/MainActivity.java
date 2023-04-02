@@ -82,9 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
             // 타이머가 동작중일 경우
             else {
-                timer.cancel();
-                timer = null;
-                timer.schedule(timerTask, 0, 1000);
             }
         });
 
