@@ -2,6 +2,7 @@ package com.example.term_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +25,6 @@ public class UserAddActivity extends AppCompatActivity {
         MySQLite mySQLite = new MySQLite(this);
         SQLiteDatabase dbWriter = mySQLite.getWritableDatabase();
 
-
         // 사용자 추가 버튼 동작 구현
         button_addUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +33,10 @@ public class UserAddActivity extends AppCompatActivity {
                 dbWriter.execSQL(querry);
                 try {
                     Toast.makeText(getApplicationContext(), "사용자가 추가되었습니다.", Toast.LENGTH_SHORT).show();
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 뒤로가기
+                    // 유저 선택 페이지로 이동
+                    Intent intent = new Intent(getApplicationContext(), UserSelectActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 } catch (Exception e){
                     Toast.makeText(getApplicationContext(), "이미 사용중인 이름입니다.", Toast.LENGTH_SHORT).show();
                 }
