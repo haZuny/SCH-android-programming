@@ -47,6 +47,7 @@ public class UserSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserAddActivity.class); // 이동할 페이지 인텐트 생성
+                //intent.putExtra("userList", id.getText().toString());
                 startActivity(intent);
             }
         });

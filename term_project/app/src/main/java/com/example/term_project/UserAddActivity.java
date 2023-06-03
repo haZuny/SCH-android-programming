@@ -31,8 +31,12 @@ public class UserAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String querry = String.format("INSERT INTO USER VALUES('%s')", editText_userName.getText());
                 dbWriter.execSQL(querry);
-                Toast.makeText(getApplicationContext(), "사용자가 추가되었습니다.", Toast.LENGTH_SHORT).show();
-                //getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 뒤로가기
+                try {
+                    Toast.makeText(getApplicationContext(), "사용자가 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 뒤로가기
+                } catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "이미 사용중인 이름입니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
