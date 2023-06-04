@@ -7,13 +7,9 @@ import java.util.List;
 
 public class GlobalVar extends Application {
     List<String> userList = new ArrayList<>();  // 사용자 목록
-    int id;     // Plan id
-    String user_id;
-    String title;
-    String day;
-    String s_time;
-    String e_time;
-    int expense;    // 지출액
+    String user_name = "";
+    String selectedDay = "";
+
 
 
     @Override
@@ -34,4 +30,10 @@ public class GlobalVar extends Application {
     List<String> getUserList(){
         return userList;
     }
+    String getUserName() { return  user_name;}
+    String getSelectedDay(){return selectedDay;}
+
+    // Setter
+    void setUserName(String userName){this.user_name = userName;}
+    void setSelectedDay(String day){selectedDay = day;}
 }

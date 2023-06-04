@@ -51,8 +51,12 @@ public class UserSelectActivity extends AppCompatActivity {
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Toast.makeText(getApplicationContext(), globalVal.getUserList().get(position),
-                        Toast.LENGTH_LONG).show();
+                // 유저 이름 설정
+                globalVal.setUserName(globalVal.getUserList().get(position));
+                // 페이지 이동
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class); // 이동할 페이지 인텐트 생성
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -62,7 +66,6 @@ public class UserSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserAddActivity.class); // 이동할 페이지 인텐트 생성
-                //intent.putExtra("userList", id.getText().toString());
                 startActivity(intent);
             }
         });
