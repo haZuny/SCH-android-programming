@@ -20,7 +20,7 @@ public class MySQLite extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query="CREATE TABLE USER(name TEXT PRIMARY KEY);";
         db.execSQL(query);
-        query="CREATE TABLE PLAN(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        query="CREATE TABLE PLAN(id INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 " user_name TEXT, title TEXT, day TEXT, s_time TEXT, e_time TEXT, expense INT, is_done TEXT, " +
                 "FOREIGN KEY (user_name) REFERENCES USER (name) ON UPDATE CASCADE);";
         db.execSQL(query);

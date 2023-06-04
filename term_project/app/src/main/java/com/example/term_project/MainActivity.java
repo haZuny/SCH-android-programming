@@ -3,6 +3,7 @@ package com.example.term_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 
@@ -23,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 전역 변수
         GlobalVar globalVar = (GlobalVar)getApplicationContext();
+
+        // DB 컨트롤러
+        MySQLite mySQLite = new MySQLite(this);
+        SQLiteDatabase dbWriter = mySQLite.getWritableDatabase();
 
         // 현재 날짜
         LocalDate now = null;
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             addPlanDialog.show();
 
             EditText editText_title = addPlanDialog.findViewById(R.id.planAdd_editText_title);
-            EditText editText_money = addPlanDialog.findViewById(R.id.planAdd_editText_title);
+            EditText editText_money = addPlanDialog.findViewById(R.id.planAdd_editText_money);
             Button button_stime = addPlanDialog.findViewById(R.id.planAdd_button_stime);
             // 시작 시간 이벤트
             button_stime.setOnClickListener(v1 -> {
@@ -84,10 +90,25 @@ public class MainActivity extends AppCompatActivity {
                     timePicker.dismiss();
                 });
             });
-            EditText editText_location = addPlanDialog.findViewById(R.id.planAdd_editText_title);
+            EditText editText_location = addPlanDialog.findViewById(R.id.planAdd_editText_location);
             Button button_ok = addPlanDialog.findViewById(R.id.planAdd_button_ok);
+            // 확인 버튼 이벤트
+            button_ok.setOnClickListener(v1 -> {
+                // null 확인
+                if ("".equals(editText_title.getText()) || "".equals(editText_money) || "".equals(editText_location) || "".equals(button_stime.getText()) || "".equals(button_etime.getText())) {
+                    Toast.makeText(getApplicationContext(), "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String querry = String.format("INSERT INTO PLAN VALUES(NULL, '%s', '%s', '%s', '%s', '%s', %d, '%s')",
+                            globalVar.getUserName(), editText_title.getText(), globalVar.getSelectedDay(),
+                            button_stime.getText(), button_etime.getText(),
+                            Integer.parseInt(String.valueOf(editText_money.getText())), "false");
+                    dbWriter.execSQL(querry);
+                    Toast.makeText(getApplicationContext(), "일정이ㅁ 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    addPlanDialog.dismiss();
+                }
+            });
             Button button_cancle = addPlanDialog.findViewById(R.id.planAdd_button_cancle);
-
             // 취소 버튼 이벤트
             button_cancle.setOnClickListener(v1 -> {
                 addPlanDialog.dismiss();
