@@ -34,11 +34,4 @@ public class GlobalVar extends Application {
     List<String> getUserList(){
         return userList;
     }
-
-    // Setter
-    void setUserList(List<String> userList){
-        this.userList = userList;
-    }
-
-
 }
