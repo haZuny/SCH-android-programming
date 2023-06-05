@@ -2,9 +2,13 @@ package com.example.term_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,5 +44,18 @@ public class ViewDayActivity extends AppCompatActivity {
         // 리스트뷰 설정
         ViewDayListAdapter myAdapter = new ViewDayListAdapter((Context) this, (ArrayList<Plan>) globalVar.getDayPlanList());
         listView.setAdapter(myAdapter);
-            }
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            System.out.println("bbbbbbbbbbbbbbbbbbb");
+        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView parent, View v, int position, long id) {
+//                System.out.println("aaaaaaaaaaaaaaaaaaaaa");
+//                // 일정 추가 다이얼로그
+//                Dialog addPlanDialog = new Dialog(ViewDayActivity.this);
+//                addPlanDialog.setContentView(R.layout.plan_add_dialog);
+//                addPlanDialog.show();
+//            }
+//        });
+    }
 }
