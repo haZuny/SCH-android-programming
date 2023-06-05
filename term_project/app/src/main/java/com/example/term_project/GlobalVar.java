@@ -7,6 +7,7 @@ import java.util.List;
 
 public class GlobalVar extends Application {
     List<String> userList = new ArrayList<>();  // 사용자 목록
+    List<Plan> dayPlanList = new ArrayList<>(); // 선택된 날짜의 일정 목록
     String user_name = "";
     String selectedDay = "";
 
@@ -30,10 +31,12 @@ public class GlobalVar extends Application {
     List<String> getUserList(){
         return userList;
     }
+    List<Plan> getDayPlanList(){return dayPlanList;}
     String getUserName() { return  user_name;}
     String getSelectedDay(){return selectedDay;}
 
     // Setter
+    void setDayPlanList(List<Plan> planList){this.dayPlanList = planList;}
     void setUserName(String userName){this.user_name = userName;}
     void setSelectedDay(String day){selectedDay = day;}
 }

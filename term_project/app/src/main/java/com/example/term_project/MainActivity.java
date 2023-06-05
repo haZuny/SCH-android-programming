@@ -3,6 +3,8 @@ package com.example.term_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         // DB 컨트롤러
         MySQLite mySQLite = new MySQLite(this);
         SQLiteDatabase dbWriter = mySQLite.getWritableDatabase();
+        SQLiteDatabase dbReader = mySQLite.getWritableDatabase();
 
         // 현재 날짜
         LocalDate now = null;
@@ -45,15 +50,38 @@ public class MainActivity extends AppCompatActivity {
         CalendarView calendarView = findViewById(R.id.main_calender);
         TextView textView_userName = findViewById(R.id.main_text_userName);
         Button addPlanBtn = findViewById(R.id.main_button_addPlan);
+        Button viewTodayPlanBtn = findViewById(R.id.main_button_viewTodayPlan);
 
         // 초기화
         textView_userName.setText(globalVar.getUserName());
         globalVar.setSelectedDay(now.toString());
+        // 현재 날짜 정보
+        Cursor cursor1 = dbReader.rawQuery("SELECT * FROM PLAN WHERE day = "+globalVar.getSelectedDay(), null);
+        List<Plan> planList1 = new ArrayList<>();
+        while (cursor1.moveToNext()) {
+            Plan temp = new Plan(cursor1.getInt(0), cursor1.getString(2), cursor1.getString(3),
+                    cursor1.getString(4), cursor1.getString(5), cursor1.getInt(6), cursor1.getString(7));
+            planList1.add(temp);
+        }
+        globalVar.setDayPlanList(planList1);
 
-        // 날짜 이동시 선택 날짜 변경
+        // 날짜 이동시 이벤트
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            // 선택된 날짜 변경
             String selectedDay = String.format("%04d-%02d-%02d", year, month, dayOfMonth);
             globalVar.setSelectedDay(selectedDay);
+            // db에서 선택된 날짜 정보 읽어오기
+//            Cursor cursor = dbReader.rawQuery("SELECT * FROM PLAN WHERE day = "+selectedDay, null);
+            Cursor cursor = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", selectedDay), null);
+            System.out.println(selectedDay);
+            List<Plan> planList = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                Plan temp = new Plan(cursor.getInt(0), cursor.getString(2), cursor.getString(3),
+                        cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7));
+                planList.add(temp);
+                System.out.println(String.format("%d, %s, %s", temp.id, temp.day, temp.title));
+            }
+            globalVar.setDayPlanList(planList);
         });
 
         // 일정 추가 버튼
@@ -104,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                             button_stime.getText(), button_etime.getText(),
                             Integer.parseInt(String.valueOf(editText_money.getText())), "false");
                     dbWriter.execSQL(querry);
-                    Toast.makeText(getApplicationContext(), "일정이ㅁ 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
                     addPlanDialog.dismiss();
                 }
             });
@@ -113,10 +141,14 @@ public class MainActivity extends AppCompatActivity {
             button_cancle.setOnClickListener(v1 -> {
                 addPlanDialog.dismiss();
             });
-
-
         });
 
+        // 오늘 일정 보기 이벤트
+        viewTodayPlanBtn.setOnClickListener(view -> {
+            // 페이지 이동
+            Intent intent = new Intent(getApplicationContext(), ViewDayActivity.class); // 이동할 페이지 인텐트 생성
+            startActivity(intent);
+        });
 
     }
 }
