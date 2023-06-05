@@ -2,11 +2,13 @@ package com.example.term_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewDayActivity extends AppCompatActivity {
@@ -35,6 +37,8 @@ public class ViewDayActivity extends AppCompatActivity {
         }
         text_expense.setText(String.valueOf(todayExpense));
 
-
-    }
+        // 리스트뷰 설정
+        ViewDayListAdapter myAdapter = new ViewDayListAdapter((Context) this, (ArrayList<Plan>) globalVar.getDayPlanList());
+        listView.setAdapter(myAdapter);
+            }
 }

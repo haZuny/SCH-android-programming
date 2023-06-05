@@ -60,7 +60,6 @@ public class UserSelectActivity extends AppCompatActivity {
             }
         });
 
-
         // 사용자 추가 버튼 동작 구현
         button_addUser.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         textView_userName.setText(globalVar.getUserName());
         globalVar.setSelectedDay(now.toString());
         // 현재 날짜 정보
-        Cursor cursor1 = dbReader.rawQuery("SELECT * FROM PLAN WHERE day = "+globalVar.getSelectedDay(), null);
+        Cursor cursor1 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
         List<Plan> planList1 = new ArrayList<>();
         while (cursor1.moveToNext()) {
             Plan temp = new Plan(cursor1.getInt(0), cursor1.getString(2), cursor1.getString(3),
@@ -71,15 +71,12 @@ public class MainActivity extends AppCompatActivity {
             String selectedDay = String.format("%04d-%02d-%02d", year, month, dayOfMonth);
             globalVar.setSelectedDay(selectedDay);
             // db에서 선택된 날짜 정보 읽어오기
-//            Cursor cursor = dbReader.rawQuery("SELECT * FROM PLAN WHERE day = "+selectedDay, null);
             Cursor cursor = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", selectedDay), null);
-            System.out.println(selectedDay);
             List<Plan> planList = new ArrayList<>();
             while (cursor.moveToNext()) {
                 Plan temp = new Plan(cursor.getInt(0), cursor.getString(2), cursor.getString(3),
                         cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7));
                 planList.add(temp);
-                System.out.println(String.format("%d, %s, %s", temp.id, temp.day, temp.title));
             }
             globalVar.setDayPlanList(planList);
         });
