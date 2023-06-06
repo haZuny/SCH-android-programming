@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         // 초기화 >> 현재 날짜 정보
         globalVar.setSelectedDay(now.toString());
         // 초기화 >> 일정 업데이트
-        Cursor cursor1 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
+        Cursor cursor1 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s' AND user_name = '%s'", globalVar.getSelectedDay(), globalVar.getUserName()), null);
         List<Plan> planList1 = new ArrayList<>();
         List<String> planTitleList1 = new ArrayList<>();
         while (cursor1.moveToNext()) {
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             String selectedDay = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth);
             globalVar.setSelectedDay(selectedDay);
             // db에서 선택된 날짜 정보 읽어오기
-            Cursor cursor = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", selectedDay), null);
+            Cursor cursor = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s' AND user_name = '%s'", globalVar.getSelectedDay(), globalVar.getUserName()), null);
             List<Plan> planList = new ArrayList<>();
             List<String> planTitleList = new ArrayList<>();
             while (cursor.moveToNext()) {
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
                     // 일정 목록 업데이트
-                    Cursor cursor2 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
+                    Cursor cursor2 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s' AND user_name = '%s'", globalVar.getSelectedDay(), globalVar.getUserName()), null);
                     List<Plan> planList2 = new ArrayList<>();
                     List<String> planTitleList2 = new ArrayList<>();
                     while (cursor2.moveToNext()) {
