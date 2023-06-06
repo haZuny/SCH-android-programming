@@ -41,7 +41,7 @@ public class ViewDayActivity extends AppCompatActivity {
         for (Plan plan : todayPlanList){
             todayExpense += plan.expense;
         }
-        text_expense.setText("오늘 지출 금액: "+String.valueOf(todayExpense));
+        text_expense.setText("오늘 지출 금액: "+String.valueOf(todayExpense)+" 원");
 
         // 리스트뷰 설정
         ViewDayListAdapter myAdapter = new ViewDayListAdapter((Context) this, (ArrayList<Plan>) globalVar.getDayPlanList());
