@@ -79,9 +79,9 @@ public class ViewDayListAdapter extends BaseAdapter {
         editPlanDialog.setContentView(R.layout.plan_add_dialog);
 
         // 초기화
-        text_title.setText(planList.get(i).title);
-        text_time.setText(planList.get(i).sTime + " ~ " + planList.get(i).eTime);
-        text_expense.setText(String.valueOf(planList.get(i).expense));
+        text_title.setText("일정: "+planList.get(i).title);
+        text_time.setText("시간: "+planList.get(i).sTime + " ~ " + planList.get(i).eTime);
+        text_expense.setText("지출 금액: "+String.valueOf(planList.get(i).expense)+" 원");
         if (planList.get(i).isDone.equals("TRUE")) {
             switch_isDone.setChecked(true);
         } else {
@@ -115,16 +115,17 @@ public class ViewDayListAdapter extends BaseAdapter {
 
             // 초기화
             text_planTitle.setText(planList.get(i).title);
-            text_planDay.setText(planList.get(i).day);
-            text_planTime.setText(planList.get(i).sTime + " ~ " + planList.get(i).eTime);
-            text_planExpense.setText(String.valueOf(planList.get(i).expense));
-            text_planIsDone.setText(planList.get(i).isDone);
+            text_planDay.setText("날짜: "+planList.get(i).day);
+            text_planTime.setText("시간: "+planList.get(i).sTime + " ~ " + planList.get(i).eTime);
+            text_planExpense.setText("지출 금액: "+String.valueOf(planList.get(i).expense));
+            text_planIsDone.setText("완료 여부: "+planList.get(i).isDone);
 
             // 수정 버튼 이벤트
             button_planEdit.setOnClickListener(v1 -> {
                 editPlanDialog.show();
 
                 // 컴포넌트
+                TextView titleText = editPlanDialog.findViewById(R.id.planAdd_title);
                 EditText editText_title = editPlanDialog.findViewById(R.id.planAdd_editText_title);
                 EditText editText_money = editPlanDialog.findViewById(R.id.planAdd_editText_money);
                 Button button_stime = editPlanDialog.findViewById(R.id.planAdd_button_stime);
@@ -133,6 +134,7 @@ public class ViewDayListAdapter extends BaseAdapter {
                 Button button_cancle = editPlanDialog.findViewById(R.id.planAdd_button_cancle);
 
                 // 초기화
+                titleText.setText("일정 수정");
                 editText_title.setText(planList.get(i).title);
                 editText_money.setText(String.valueOf(planList.get(i).expense));
                 button_stime.setText(planList.get(i).sTime);

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.main_listView);
 
         // 초기화
-        textView_userName.setText(globalVar.getUserName());
+        textView_userName.setText("사용자: "+globalVar.getUserName());
         // 초기화 >> 현재 날짜 정보
         globalVar.setSelectedDay(now.toString());
         // 초기화 >> 일정 업데이트
@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
             planTitleList1.add(temp.title);
         }
         globalVar.setDayPlanList(planList1);
-        globalVar.setDayPlanTitleList(planTitleList1);
+        // 리스트뷰 어댑터 추가
+        ArrayAdapter arrayAdapter1 = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, planTitleList1);
+        listView.setAdapter(arrayAdapter1);
 
         // 날짜 이동시 이벤트
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
@@ -90,12 +92,12 @@ public class MainActivity extends AppCompatActivity {
                 planTitleList.add(temp.title);
             }
             globalVar.setDayPlanList(planList);
-            globalVar.setDayPlanTitleList(planTitleList);
+            // 리스트뷰 어댑터 추가
+            ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, planTitleList);
+            listView.setAdapter(arrayAdapter);
         });
 
-        // 리스트뷰 어댑터 추가
-        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, globalVar.getDayPlanTitleList());
-        listView.setAdapter(arrayAdapter);
+
         // 리스트뷰 클릭 이벤트 구현
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -168,7 +170,9 @@ public class MainActivity extends AppCompatActivity {
                         planTitleList2.add(temp.title);
                     }
                     globalVar.setDayPlanList(planList2);
-                    globalVar.setDayPlanTitleList(planTitleList2);
+                    // 리스트뷰 어댑터 추가
+                    ArrayAdapter arrayAdapter2 = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, planTitleList2);
+                    listView.setAdapter(arrayAdapter2);
 
                     // 초기 위치로
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class); // 이동할 페이지 인텐트 생성

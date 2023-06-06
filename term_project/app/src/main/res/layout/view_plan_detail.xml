@@ -2,67 +2,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/viewPlanDetail_text_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="0dp"
+        android:layout_weight="2.3"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/viewPlanDetail_text_day"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:gravity="left|center_vertical"
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/viewPlanDetail_text_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:gravity="left|center_vertical"
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/viewPlanDetail_text_expense"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:gravity="left|center_vertical"
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/viewPlanDetail_text_isDone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:gravity="left|center_vertical"
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="30dp"
+        android:layout_weight="0.5"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/viewPlanDetail_button_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="수정" />
 
+        <View
+            android:id="@+id/view10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.15" />
+
         <Button
             android:id="@+id/viewPlanDetail_button_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="삭제" />
 
+        <View
+            android:id="@+id/view14"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.15" />
+
         <Button
             android:id="@+id/viewPlanDetail_button_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="뒤로" />
     </LinearLayout>
