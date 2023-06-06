@@ -9,9 +9,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_page);
 
         // 전역 변수
-        GlobalVar globalVar = (GlobalVar)getApplicationContext();
+        GlobalVar globalVar = (GlobalVar) getApplicationContext();
 
         // DB 컨트롤러
         MySQLite mySQLite = new MySQLite(this);
@@ -51,36 +55,54 @@ public class MainActivity extends AppCompatActivity {
         TextView textView_userName = findViewById(R.id.main_text_userName);
         Button addPlanBtn = findViewById(R.id.main_button_addPlan);
         Button viewTodayPlanBtn = findViewById(R.id.main_button_viewTodayPlan);
+        ListView listView = findViewById(R.id.main_listView);
 
         // 초기화
         textView_userName.setText(globalVar.getUserName());
-        // 현재 날짜 정보
+        // 초기화 >> 현재 날짜 정보
         globalVar.setSelectedDay(now.toString());
-        // 일정 업데이트
+        // 초기화 >> 일정 업데이트
         Cursor cursor1 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
         List<Plan> planList1 = new ArrayList<>();
+        List<String> planTitleList1 = new ArrayList<>();
         while (cursor1.moveToNext()) {
             Plan temp = new Plan(cursor1.getInt(0), cursor1.getString(2), cursor1.getString(3),
                     cursor1.getString(4), cursor1.getString(5), cursor1.getInt(6), cursor1.getString(7));
             planList1.add(temp);
+            planTitleList1.add(temp.title);
         }
         globalVar.setDayPlanList(planList1);
+        globalVar.setDayPlanTitleList(planTitleList1);
 
         // 날짜 이동시 이벤트
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // 선택된 날짜 변경
-            String selectedDay = String.format("%04d-%02d-%02d", year, month, dayOfMonth);
+            String selectedDay = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth);
             globalVar.setSelectedDay(selectedDay);
             // db에서 선택된 날짜 정보 읽어오기
             Cursor cursor = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", selectedDay), null);
             List<Plan> planList = new ArrayList<>();
+            List<String> planTitleList = new ArrayList<>();
             while (cursor.moveToNext()) {
                 Plan temp = new Plan(cursor.getInt(0), cursor.getString(2), cursor.getString(3),
                         cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7));
                 planList.add(temp);
+                planTitleList.add(temp.title);
             }
             globalVar.setDayPlanList(planList);
+            globalVar.setDayPlanTitleList(planTitleList);
         });
+
+        // 리스트뷰 어댑터 추가
+        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, globalVar.getDayPlanTitleList());
+        listView.setAdapter(arrayAdapter);
+        // 리스트뷰 클릭 이벤트 구현
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView parent, View v, int position, long id) {
+//
+//            }
+//        });
 
         // 일정 추가 버튼
         addPlanBtn.setOnClickListener(v -> {
@@ -93,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             Button button_etime = addPlanDialog.findViewById(R.id.planAdd_button_etime);
             Button button_ok = addPlanDialog.findViewById(R.id.planAdd_button_ok);
             Button button_cancle = addPlanDialog.findViewById(R.id.planAdd_button_cancle);
-            
+
             // 시작 시간 이벤트
             button_stime.setOnClickListener(v1 -> {
                 Dialog timePicker = new Dialog(this);
@@ -107,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     timePicker.dismiss();
                 });
             });
-            
+
             // 종료 시간 이벤트
             button_etime.setOnClickListener(v1 -> {
                 Dialog timePicker = new Dialog(this);
@@ -121,14 +143,13 @@ public class MainActivity extends AppCompatActivity {
                     timePicker.dismiss();
                 });
             });
-            
+
             // 확인 버튼 이벤트
             button_ok.setOnClickListener(v1 -> {
                 // null 확인
                 if ("".equals(editText_title.getText()) || "".equals(editText_money) || "".equals(button_stime.getText()) || "".equals(button_etime.getText())) {
                     Toast.makeText(getApplicationContext(), "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     String querry = String.format("INSERT INTO PLAN VALUES(NULL, '%s', '%s', '%s', '%s', '%s', %d, '%s')",
                             globalVar.getUserName(), editText_title.getText(), globalVar.getSelectedDay(),
                             button_stime.getText(), button_etime.getText(),
@@ -139,12 +160,15 @@ public class MainActivity extends AppCompatActivity {
                     // 일정 목록 업데이트
                     Cursor cursor2 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
                     List<Plan> planList2 = new ArrayList<>();
+                    List<String> planTitleList2 = new ArrayList<>();
                     while (cursor2.moveToNext()) {
                         Plan temp = new Plan(cursor2.getInt(0), cursor2.getString(2), cursor2.getString(3),
                                 cursor2.getString(4), cursor2.getString(5), cursor2.getInt(6), cursor2.getString(7));
                         planList2.add(temp);
+                        planTitleList2.add(temp.title);
                     }
                     globalVar.setDayPlanList(planList2);
+                    globalVar.setDayPlanTitleList(planTitleList2);
 
                     // 초기 위치로
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class); // 이동할 페이지 인텐트 생성

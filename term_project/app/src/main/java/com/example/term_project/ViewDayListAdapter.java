@@ -56,6 +56,9 @@ public class ViewDayListAdapter extends BaseAdapter {
     public View getView(int i, View coverView, ViewGroup viewGroup) {
         View view = myLayoutInflater.inflate(R.layout.view_day_page_listview, null);
 
+        // 전역변수
+        GlobalVar globalVar = (GlobalVar) myContext.getApplicationContext();
+
         // 컴포넌트
         TextView text_title = view.findViewById(R.id.viewDayList_text_title);
         TextView text_time = view.findViewById(R.id.viewDayList_text_time);
@@ -170,9 +173,11 @@ public class ViewDayListAdapter extends BaseAdapter {
                     if ("".equals(editText_title.getText()) || "".equals(editText_money) || "".equals(button_stime.getText()) || "".equals(button_etime.getText())) {
                         Toast.makeText(myContext, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     } else {
-//                        String querry = String.format("INSERT INTO PLAN VALUES(NULL, '%s', '%s', '%s', '%s', '%s', %d, '%s')", globalVar.getUserName(), editText_title.getText(), globalVar.getSelectedDay(), button_stime.getText(), button_etime.getText(), Integer.parseInt(String.valueOf(editText_money.getText())), "false");
-//                        dbWriter.execSQL(querry);
-//                        Toast.makeText(myContext, "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                        String querry = String.format("UPDATE PLAN SET title = '%s', expense = %d, s_time = '%s',  e_time = '%s' WHERE id = %d",
+                                editText_title.getText(), Integer.parseInt(String.valueOf(editText_money.getText())),
+                                button_stime.getText(), button_etime.getText(), planList.get(i).id);
+                        dbWriter.execSQL(querry);
+                        Toast.makeText(myContext, "일정이 변경 되었습니다.", Toast.LENGTH_SHORT).show();
                         // 초기 위치로
                         Intent intent = new Intent(myContext, MainActivity.class); // 이동할 페이지 인텐트 생성
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
