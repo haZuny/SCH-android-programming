@@ -9,41 +9,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="sans-serif"
-            android:text="Select User"
+            android:gravity="center"
+            android:text="사용자를 선택하세요"
             android:textAlignment="center"
-            android:textSize="48sp" />
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/userSelect_list_userList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="293dp"
+            android:layout_weight="8">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        </ListView>
 
-            <Button
-                android:id="@+id/userSelect_button_addUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="사용자 추가" />
-
-            <Button
-                android:id="@+id/userSelect_button_manageUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="사용자 관리" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/userSelect_button_addUser"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:text="사용자 추가" />
 
     </LinearLayout>
 

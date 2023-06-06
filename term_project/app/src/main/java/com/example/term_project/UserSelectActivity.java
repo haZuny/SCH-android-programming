@@ -31,7 +31,6 @@ public class UserSelectActivity extends AppCompatActivity {
 
         // 컴포넌트
         Button button_addUser = findViewById(R.id.userSelect_button_addUser);
-        Button button_manageUser = findViewById(R.id.userSelect_button_manageUser);
         ListView userListView = findViewById(R.id.userSelect_list_userList);
 
         // DB 컨트롤러
@@ -66,14 +65,6 @@ public class UserSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserAddActivity.class); // 이동할 페이지 인텐트 생성
                 startActivity(intent);
-            }
-        });
-
-        // 사용자 관리 버튼 동작 구현
-        button_manageUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "text: " + globalVal.getUserList().get(0), Toast.LENGTH_SHORT).show();
             }
         });
     }

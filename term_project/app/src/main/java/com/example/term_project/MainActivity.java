@@ -54,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         // 초기화
         textView_userName.setText(globalVar.getUserName());
-        globalVar.setSelectedDay(now.toString());
         // 현재 날짜 정보
+        globalVar.setSelectedDay(now.toString());
+        // 일정 업데이트
         Cursor cursor1 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
         List<Plan> planList1 = new ArrayList<>();
         while (cursor1.moveToNext()) {
@@ -85,9 +86,14 @@ public class MainActivity extends AppCompatActivity {
         addPlanBtn.setOnClickListener(v -> {
             addPlanDialog.show();
 
+            // 컴포넌트
             EditText editText_title = addPlanDialog.findViewById(R.id.planAdd_editText_title);
             EditText editText_money = addPlanDialog.findViewById(R.id.planAdd_editText_money);
             Button button_stime = addPlanDialog.findViewById(R.id.planAdd_button_stime);
+            Button button_etime = addPlanDialog.findViewById(R.id.planAdd_button_etime);
+            Button button_ok = addPlanDialog.findViewById(R.id.planAdd_button_ok);
+            Button button_cancle = addPlanDialog.findViewById(R.id.planAdd_button_cancle);
+            
             // 시작 시간 이벤트
             button_stime.setOnClickListener(v1 -> {
                 Dialog timePicker = new Dialog(this);
@@ -101,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     timePicker.dismiss();
                 });
             });
-            Button button_etime = addPlanDialog.findViewById(R.id.planAdd_button_etime);
+            
             // 종료 시간 이벤트
             button_etime.setOnClickListener(v1 -> {
                 Dialog timePicker = new Dialog(this);
@@ -115,12 +121,11 @@ public class MainActivity extends AppCompatActivity {
                     timePicker.dismiss();
                 });
             });
-            EditText editText_location = addPlanDialog.findViewById(R.id.planAdd_editText_location);
-            Button button_ok = addPlanDialog.findViewById(R.id.planAdd_button_ok);
+            
             // 확인 버튼 이벤트
             button_ok.setOnClickListener(v1 -> {
                 // null 확인
-                if ("".equals(editText_title.getText()) || "".equals(editText_money) || "".equals(editText_location) || "".equals(button_stime.getText()) || "".equals(button_etime.getText())) {
+                if ("".equals(editText_title.getText()) || "".equals(editText_money) || "".equals(button_stime.getText()) || "".equals(button_etime.getText())) {
                     Toast.makeText(getApplicationContext(), "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -130,10 +135,25 @@ public class MainActivity extends AppCompatActivity {
                             Integer.parseInt(String.valueOf(editText_money.getText())), "false");
                     dbWriter.execSQL(querry);
                     Toast.makeText(getApplicationContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
-                    addPlanDialog.dismiss();
+
+                    // 일정 목록 업데이트
+                    Cursor cursor2 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s'", globalVar.getSelectedDay()), null);
+                    List<Plan> planList2 = new ArrayList<>();
+                    while (cursor2.moveToNext()) {
+                        Plan temp = new Plan(cursor2.getInt(0), cursor2.getString(2), cursor2.getString(3),
+                                cursor2.getString(4), cursor2.getString(5), cursor2.getInt(6), cursor2.getString(7));
+                        planList2.add(temp);
+                    }
+                    globalVar.setDayPlanList(planList2);
+
+                    // 초기 위치로
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class); // 이동할 페이지 인텐트 생성
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
+
             });
-            Button button_cancle = addPlanDialog.findViewById(R.id.planAdd_button_cancle);
+
             // 취소 버튼 이벤트
             button_cancle.setOnClickListener(v1 -> {
                 addPlanDialog.dismiss();

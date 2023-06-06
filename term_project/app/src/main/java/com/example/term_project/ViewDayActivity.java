@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class ViewDayActivity extends AppCompatActivity {
         TextView text_day = findViewById(R.id.viewDay_text_day);
         TextView text_expense = findViewById(R.id.viewDay_text_expensse);
         ListView listView = findViewById(R.id.viewDay_listView);
+        Button button_back = findViewById(R.id.viewDay_button_back);
 
         // 선택 날짜 글자 설정
         text_day.setText(globalVar.getSelectedDay());
@@ -44,18 +46,13 @@ public class ViewDayActivity extends AppCompatActivity {
         // 리스트뷰 설정
         ViewDayListAdapter myAdapter = new ViewDayListAdapter((Context) this, (ArrayList<Plan>) globalVar.getDayPlanList());
         listView.setAdapter(myAdapter);
-        listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            System.out.println("bbbbbbbbbbbbbbbbbbb");
+
+        // 뒤로가기 버튼 설정
+        button_back.setOnClickListener(v -> {
+            // 페이지 이동
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class); // 이동할 페이지 인텐트 생성
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView parent, View v, int position, long id) {
-//                System.out.println("aaaaaaaaaaaaaaaaaaaaa");
-//                // 일정 추가 다이얼로그
-//                Dialog addPlanDialog = new Dialog(ViewDayActivity.this);
-//                addPlanDialog.setContentView(R.layout.plan_add_dialog);
-//                addPlanDialog.show();
-//            }
-//        });
     }
 }

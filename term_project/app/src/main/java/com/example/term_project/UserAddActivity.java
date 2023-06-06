@@ -23,6 +23,7 @@ public class UserAddActivity extends AppCompatActivity {
 
         // 컴포넌트
         Button button_addUser = findViewById(R.id.userAdd_button_addUser);
+        Button button_back = findViewById(R.id.userAdd_button_back);
         EditText editText_userName = findViewById(R.id.userAdd_editText_userName);
 
         // DB 컨트롤러
@@ -39,7 +40,7 @@ public class UserAddActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "이미 사용 중인 이름 입니다.", Toast.LENGTH_SHORT).show();
                 }
                 // 닉네임 추가
-                else{
+                else {
                     String querry = String.format("INSERT INTO USER VALUES('%s')", text);
                     dbWriter.execSQL(querry);
                     Toast.makeText(getApplicationContext(), "사용자가 추가되었습니다.", Toast.LENGTH_SHORT).show();
@@ -49,6 +50,13 @@ public class UserAddActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
+        });
+
+        // 뒤로가기 버튼 동작 구현
+        button_back.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UserSelectActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
     }
 }
