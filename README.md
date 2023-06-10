@@ -67,7 +67,7 @@
     - SQLite를 사용하여 데이터를 관리합니다. 앱을 종료 후에도 정보가 남아있습니다.
 
 ##### 실행 화면
-- 사용자 선택 및 추가
+- 사용자 선택 및 추가<br>
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/47252ca2-103e-4014-a4a1-7bb14f6a65c5" width="300">
 <br>
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/dcfdf75e-5c9f-4474-87f9-59026e7f6bac" width="300">
@@ -75,13 +75,11 @@
     -사용자를 선택, 추가합니다. 각 사용자마다 별도로 일정을 관리할 수 있습니다.<br>
 <br>
 
-
 - 메인 페이지
-<img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/38c69350-e7a0-4094-b6d2-41a11b8dad5f" width="300"
-     ><br>
+<img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/38c69350-e7a0-4094-b6d2-41a11b8dad5f" width="300">
+<br>
   - 쉽게 일정을 확인 할 수 있도록 달력을 제공합니다.<br>
   - 달력에서 특정 날짜를 선택하면 해당 날짜의 일정을 요약하여 보여줍니다.<br>
-
 <br>
 
 - 일정 추가
@@ -90,7 +88,6 @@
 <br>
   - 일정을 추가하는 인터페이스를 제공합니다.<br>
   - 시간 같은 경우, 버튼을 클릭하면 TimePicker를 제공하여 쉽게 시간을 선택할 수 있습니다.<br>
-
 <br>
 
 - 오늘 일정 보기
@@ -98,7 +95,6 @@
 <br>
   - 오늘 일정을 좀 더 자세히 확인 할 수 있습니다.<br>
   - Switch 토글을 통해 일정 완료 여부를 체크할 수 있습니다.<br>
-
 <br>
 
 - 오늘 일정 자세히 보기
@@ -108,7 +104,6 @@
 <br>
   - 일정을 자세히 확인할 수 있습니다.<br>
   - 일정을 수정, 삭제 할 수 있습니다.<br>
-
 <br>
 
 ##### DB 모델링
