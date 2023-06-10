@@ -1,6 +1,8 @@
 package com.example.term_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -97,15 +99,6 @@ public class MainActivity extends AppCompatActivity {
             listView.setAdapter(arrayAdapter);
         });
 
-
-        // 리스트뷰 클릭 이벤트 구현
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView parent, View v, int position, long id) {
-//
-//            }
-//        });
-
         // 일정 추가 버튼
         addPlanBtn.setOnClickListener(v -> {
             addPlanDialog.show();
@@ -163,11 +156,13 @@ public class MainActivity extends AppCompatActivity {
                     Cursor cursor2 = dbReader.rawQuery(String.format("SELECT * FROM PLAN WHERE day = '%s' AND user_name = '%s'", globalVar.getSelectedDay(), globalVar.getUserName()), null);
                     List<Plan> planList2 = new ArrayList<>();
                     List<String> planTitleList2 = new ArrayList<>();
+                    int lastId = -1;
                     while (cursor2.moveToNext()) {
                         Plan temp = new Plan(cursor2.getInt(0), cursor2.getString(2), cursor2.getString(3),
                                 cursor2.getString(4), cursor2.getString(5), cursor2.getInt(6), cursor2.getString(7));
                         planList2.add(temp);
                         planTitleList2.add(temp.title);
+                        lastId = cursor2.getInt(0);
                     }
                     globalVar.setDayPlanList(planList2);
                     // 리스트뷰 어댑터 추가
