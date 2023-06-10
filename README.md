@@ -83,7 +83,7 @@
 <br>
 
 - 일정 추가
-<img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/12529aec-fffe-4537-969c-06cc2507fbd3" width="300"
+<img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/12529aec-fffe-4537-969c-06cc2507fbd3" width="300">
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/e4e79f85-1778-43d6-a550-5021e13e6860" width="300">
 <br>
   - 일정을 추가하는 인터페이스를 제공합니다.<br>
@@ -107,5 +107,5 @@
 <br>
 
 ##### DB 모델링
-<img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/2947622c-943a-4898-a5b1-25e4a39a93d2" width="300">
+<img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/2947622c-943a-4898-a5b1-25e4a39a93d2" width="500">
 <br>
