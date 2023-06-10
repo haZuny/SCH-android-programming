@@ -69,7 +69,6 @@
 ##### 실행 화면
 - 사용자 선택 및 추가<br>
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/47252ca2-103e-4014-a4a1-7bb14f6a65c5" width="300">
-<br>
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/dcfdf75e-5c9f-4474-87f9-59026e7f6bac" width="300">
 <br>
     -사용자를 선택, 추가합니다. 각 사용자마다 별도로 일정을 관리할 수 있습니다.<br>
@@ -99,7 +98,6 @@
 
 - 오늘 일정 자세히 보기
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/3f3cf745-284a-4d3e-989f-831ea5068efa" width="300">
-<br>
 <img src="https://github.com/haZuny/SCH-android-programming/assets/64102831/48d90b76-ce9e-44eb-b225-4fcf0462800e" width="300">
 <br>
   - 일정을 자세히 확인할 수 있습니다.<br>
